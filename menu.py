@@ -39,33 +39,31 @@ def character_creation_screen(screen, class_name):
 
     return buttons, font, plus_symbol, minus_symbol, points_left
 
-class_name = "Wizard"
-buttons, font, plus_symbol, minus_symbol, points_left = character_creation_screen(screen, class_name)
 
-# Main loop
-while True:
-    # Draw the buttons
-    screen.fill((0, 0, 0))
-    for button in buttons:
-        text_surface = font.render(button["name"], True, (255, 255, 255))
-        rect = text_surface.get_rect()
-        rect.topleft = button["pos"]
-        screen.blit(text_surface, rect)
-        screen.blit(plus_symbol, button["plus_rect"].topleft)
-        screen.blit(minus_symbol, button["minus_rect"].topleft)
+    # Main loop
+    while True:
+        # Draw the buttons
+        screen.fill((0, 0, 0))
+        for button in buttons:
+            text_surface = font.render(button["name"], True, (255, 255, 255))
+            rect = text_surface.get_rect()
+            rect.topleft = button["pos"]
+            screen.blit(text_surface, rect)
+            screen.blit(plus_symbol, button["plus_rect"].topleft)
+            screen.blit(minus_symbol, button["minus_rect"].topleft)
 
-        # Draw the value of the attribute
-        value_surface = font.render(str(button["value"]), True, (255, 255, 255))
-        value_rect = value_surface.get_rect()
-        value_rect.topright = (190, button["pos"][1])
-        screen.blit(value_surface, value_rect)
+            # Draw the value of the attribute
+            value_surface = font.render(str(button["value"]), True, (255, 255, 255))
+            value_rect = value_surface.get_rect()
+            value_rect.topright = (190, button["pos"][1])
+            screen.blit(value_surface, value_rect)
 
-    # Draw the points pool
-    pygame.draw.rect(screen, (255, 255, 255), (50, 500, 200, 30))
-    pygame.draw.rect(screen, (0, 0, 255), (50, 500, 200 * points_left / 100, 30))
+        # Draw the points pool
+        pygame.draw.rect(screen, (255, 255, 255), (50, 500, 200, 30))
+        pygame.draw.rect(screen, (0, 0, 255), (50, 500, 200 * points_left / 100, 30))
 
-    # Update the screen
-    pygame.display.flip()
+        # Update the screen
+        pygame.display.flip()
 
     # Handle events
     for event in pygame.event.get():
@@ -112,9 +110,11 @@ while True:
                 button["minus_pressed"] = False
 
 
-
-
 def display_character_options(screen):
+     # Set up the window
+    WINDOW_WIDTH, WINDOW_HEIGHT = 640, 480
+    screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+    
     # Set up the font
     font = pygame.font.SysFont(None, 48)
 
