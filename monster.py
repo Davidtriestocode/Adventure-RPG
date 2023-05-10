@@ -3,6 +3,9 @@ import random
 import numpy as np
 from character import char_col, char_row
 
+# define monster_row and monster_col outside of the while loop
+monster_row, monster_col = None, None
+
 # place the monster on a random location on the grid that is different from the player's location
 while True:
     monster_row, monster_col = np.random.randint(10), np.random.randint(10)
