@@ -18,11 +18,10 @@ sys.path.append(os.getcwd())
 import character
 # D - deleted monster_col and monster_row from imports as they do not exist.
 from character import level_up, char_attributes, char_col, char_row
-from monster import monster_attributes, monster_row, monster_col
+import monster
 import numpy as np
 from combat import combat
 import settings
-from menu import main_menu, character_creation_screen, display_character_options
 
 # Initialize Pygame
 pygame.init()
@@ -128,14 +127,14 @@ def game_loop():
             move_character(1, 0)
 
         # Check for combat
-        if char_row == monster_row and char_col == monster_col:
+        if char_row == monster.monster_row and char_col == monster.monster_col:
             if combat(char_attributes, monster_attributes):
                 # Spawn a new monster at a random location on the grid
                 while True:
                     new_monster_row, new_monster_col = np.random.randint(10), np.random.randint(10)
                     if new_monster_row != char_row or new_monster_col != char_col:
                         break
-                monster_row, monster_col = new_monster_row, new_monster_col
+                monster.monster_row, monster.monster_col = new_monster_row, new_monster_col
             else:
                 # Game over
                 running = False
@@ -149,7 +148,7 @@ def game_loop():
         pygame.draw.rect(window, char_color, char_rect)
 
         monster_color = (255, 0, 0)
-        monster_rect = pygame.Rect(monster_col * TILE_SIZE[0], monster_row * TILE_SIZE[1], TILE_SIZE[0], TILE_SIZE[1])
+        monster_rect = pygame.Rect(monster_col * TILE_SIZE[0], monster.monster_row * TILE_SIZE[1], TILE_SIZE[0], TILE_SIZE[1])
         pygame.draw.rect(window, monster_color, monster_rect)
 
         # Draw character stats
@@ -162,15 +161,11 @@ def game_loop():
         # Update the display
         pygame.display.update()
         
-
-# Launch the main menu
-main_menu()
-
-if __name__ == '__main__':
-    game_loop()
     
 # Quit Pygame
 pygame.quit()
+
+
 
 
 

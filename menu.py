@@ -1,7 +1,7 @@
 import pygame
 from character import char_attributes
 import settings
-from game import game_loop
+from main import game_loop
 
 # Initialize Pygame
 pygame.init()
@@ -268,3 +268,4 @@ def main_menu():
     # Update the screen
     pygame.display.flip()
 
+main_menu()
